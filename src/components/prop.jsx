@@ -15,9 +15,8 @@ const tasksInitialState = {
   ],
   name: '',
 };
-//////////////////////////////////////////////////////////////////////////////////////////////
 
-export const fetchTasksget = createAsyncThunk(
+export const fetchTasksGet = createAsyncThunk(
   'tasks2/fetchAll',
   async (TEXT, thunkAPI) => {
     try {
@@ -32,7 +31,7 @@ export const fetchTasksget = createAsyncThunk(
   }
 );
 
-export const fetchTaskspost = createAsyncThunk(
+export const fetchTasksPost = createAsyncThunk(
   'tasks2/fetchAll',
   async (TEXT, thunkAPI) => {
     try {
@@ -40,13 +39,35 @@ export const fetchTaskspost = createAsyncThunk(
         'https://67b0506cdffcd88a6788e23e.mockapi.io/contacts/contacts',
         { ...TEXT }
       );
-      return { ...TEXT, nowe: 'nowe' };
+      return { ...TEXT, new: 'new' };
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
   }
 );
+////////////////////////////////////////////////////////////////////////////////////////////////////
+const setAuthHeader = token => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+};
 
+export const fetchCreateUser = createAsyncThunk(
+  'tasks2/fetchAll',
+  async (credentials, thunkAPI) => {
+    try {
+      const res = await axios.post(
+        'https://connections-api.goit.global/users/signup',
+        credentials
+      );
+      // After successful registration, add the token to the HTTP header
+      setAuthHeader(res.data.token);
+      console.log(res.data.token);
+      return { data: res.data, new: 'new3' };
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+//////////////////////////////////////////////////////////////////////////////////////////////////
 export const fetchTasksDelete = createAsyncThunk(
   'tasks2/fetchAll',
   async (TEXT, thunkAPI) => {
@@ -71,7 +92,7 @@ export const fetchTasksDelete = createAsyncThunk(
         }
         return true;
       });
-      return { temp2, nowe: 'nowe2' };
+      return { temp2, new: 'new2' };
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
     }
@@ -93,12 +114,15 @@ const tasksSlice = createSlice({
       .addCase(fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-
-        if (action.payload.nowe === 'nowe2') {
+        if (action.payload.new === 'new3') {
+          console.log('hej');
+          return;
+        }
+        if (action.payload.new === 'new2') {
           state.contact = action.payload.temp2;
           return;
         }
-        if (action.payload.nowe === 'nowe') {
+        if (action.payload.new === 'new') {
           state.contact.push({
             name: action.payload.name,
             id2: action.payload.id2,
@@ -120,7 +144,7 @@ const tasksSlice = createSlice({
 const pending = createAction('tasks2/fetchAll/pending');
 const fulfilled = createAction('tasks2/fetchAll/fulfilled');
 const rejected = createAction('tasks2/fetchAll/rejected');
-//////////////////////////////////////////////////////////////////////////////////////////////
+
 const tasksSlice2 = createSlice({
   name: 'filter',
   initialState: tasksInitialState.name,

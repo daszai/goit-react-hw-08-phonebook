@@ -4,7 +4,7 @@ import ContactForm from './ContactForm/ContactForm';
 export const App = () => {
   return (
     <div>
-      <h1>Phonebook</h1>
+      <h1>Phone book</h1>
       <ContactForm />
       <h2>Contacts</h2>
       <Filter />

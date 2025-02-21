@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchTasksget } from 'components/prop';
+import { fetchTasksGet } from 'components/prop';
 import { useDispatch } from 'react-redux';
-import { fetchTaskspost } from 'components/prop';
+import { fetchTasksPost, fetchCreateUser } from 'components/prop';
 
 import { nanoid } from '@reduxjs/toolkit';
 
@@ -12,7 +12,14 @@ const ContactForm = props => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTasksget());
+    dispatch(fetchTasksGet());
+    dispatch(
+      fetchCreateUser({
+        name: 'Ad767576hgan khgfhjhjChfgfss',
+        email: 'u6jytffkjkjgkty@mail.com',
+        password: 'examplepwd12345',
+      })
+    );
   }, [dispatch]);
 
   const click = e => {
@@ -29,7 +36,7 @@ const ContactForm = props => {
         return false;
       })
     ) {
-      dispatch(fetchTaskspost({ name: name, phone: tel, id2: id }));
+      dispatch(fetchTasksPost({ name: name, phone: tel, id2: id }));
     } else alert(`${name} is already in contact`);
   };
 
@@ -39,7 +46,7 @@ const ContactForm = props => {
         type="text"
         name="name"
         // pattern="^[a-zA-Z]+(([' -][a-zA-Z])?[a-zA-Z]*)*$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer"
         required
       />
       <input
