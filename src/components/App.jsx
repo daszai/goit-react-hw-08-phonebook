@@ -6,7 +6,14 @@ import { Nav } from './Nav/Nav';
 import { Forbidden } from './Forbidden/Forbidden';
 import { UserMenu } from './UserMenu/UserMenu';
 import { Contact } from './Contacts/Contacts';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { refreshUser } from './props/prop';
 export const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
   return (
     <>
       <Routes>
@@ -16,6 +23,7 @@ export const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="logout" element={<Forbidden comp={<UserMenu />} />} />
         </Route>
+        <Route path="*" element={<Nav />} />
       </Routes>
     </>
   );
