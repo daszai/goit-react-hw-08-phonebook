@@ -17,13 +17,12 @@ export const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Nav />}>
+        <Route path="goit-react-hw-08-phonebook/" element={<Nav />}>
           <Route path="contacts" element={<Forbidden comp={<Contact />} />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="logout" element={<Forbidden comp={<UserMenu />} />} />
         </Route>
-        <Route path="*" element={<Nav />} />
       </Routes>
     </>
   );

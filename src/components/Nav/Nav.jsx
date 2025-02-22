@@ -9,19 +9,19 @@ export const Nav = () => {
   return (
     <>
       <nav>
-        <Link to="/register" className={css.a}>
+        <Link to="/goit-react-hw-08-phonebook/register" className={css.a}>
           register
         </Link>
-        <Link to="/login" className={css.a}>
+        <Link to="/goit-react-hw-08-phonebook/login" className={css.a}>
           login
         </Link>
         {isLoggedIn && (
-          <Link to="/contacts" className={css.a}>
+          <Link to="/goit-react-hw-08-phonebook/contacts" className={css.a}>
             contacts
           </Link>
         )}
         {isLoggedIn && (
-          <Link to="/logout" className={css.a}>
+          <Link to="/goit-react-hw-08-phonebook/logout" className={css.a}>
             logout
           </Link>
         )}
