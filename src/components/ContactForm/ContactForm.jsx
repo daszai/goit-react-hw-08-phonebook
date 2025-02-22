@@ -1,11 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchTasksGet } from 'components/prop';
+import { fetchTasksGet } from 'components/props/prop';
 import { useDispatch } from 'react-redux';
-import { fetchTasksPost, fetchCreateUser } from 'components/prop';
-
-import { nanoid } from '@reduxjs/toolkit';
+import { fetchTasksPost } from 'components/props/prop';
 
 const ContactForm = props => {
   const contacts = useSelector(state => state.contacts.contact);
@@ -13,20 +11,12 @@ const ContactForm = props => {
 
   useEffect(() => {
     dispatch(fetchTasksGet());
-    dispatch(
-      fetchCreateUser({
-        name: 'Ad767576hgan khgfhjhjChfgfss',
-        email: 'u6jytffkjkjgkty@mail.com',
-        password: 'examplepwd12345',
-      })
-    );
   }, [dispatch]);
 
   const click = e => {
     e.preventDefault();
     const name = e.nativeEvent.target.parentElement[0].value;
     const tel = e.nativeEvent.target.parentElement[1].value;
-    const id = nanoid();
 
     if (
       !contacts.some(e => {
@@ -36,7 +26,7 @@ const ContactForm = props => {
         return false;
       })
     ) {
-      dispatch(fetchTasksPost({ name: name, phone: tel, id2: id }));
+      dispatch(fetchTasksPost({ name: name, number: tel }));
     } else alert(`${name} is already in contact`);
   };
 

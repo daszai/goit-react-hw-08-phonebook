@@ -1,14 +1,22 @@
+import { Route } from 'react-router-dom';
+import { Register } from './Register/Register';
+import { Login } from './Login/Login';
+import { Routes } from 'react-router-dom';
+import { Nav } from './Nav/Nav';
+import { Forbidden } from './Forbidden/Forbidden';
+import { UserMenu } from './UserMenu/UserMenu';
 import { Contact } from './Contacts/Contacts';
-import Filter from './Filter/Filter';
-import ContactForm from './ContactForm/ContactForm';
 export const App = () => {
   return (
-    <div>
-      <h1>Phone book</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      <Contact />
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Nav />}>
+          <Route path="contacts" element={<Forbidden comp={<Contact />} />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="logout" element={<Forbidden comp={<UserMenu />} />} />
+        </Route>
+      </Routes>
+    </>
   );
 };

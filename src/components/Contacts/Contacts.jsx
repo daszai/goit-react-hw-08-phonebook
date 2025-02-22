@@ -1,12 +1,16 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTasksDelete } from 'components/prop';
+import { fetchTasksDelete } from 'components/props/prop';
+import Filter from '../Filter/Filter';
+import ContactForm from '../ContactForm/ContactForm';
 
 const Contacts = () => {
   const contacts = useSelector(state => state.contacts.contact);
   const filter = useSelector(state => state.name);
   const dispatch = useDispatch();
-
+  const isLoggedIn = useSelector(state => {
+    return state.auth.isLoggedIn;
+  });
   const deleteContacts = e => {
     dispatch(
       fetchTasksDelete({ name: e.currentTarget.name, contacts: contacts })
@@ -37,20 +41,26 @@ const Contacts = () => {
       return false;
     });
 
-  ///////////////////////////////////
   return (
     <>
-      <div>Contacts</div>
-      {contact.map(obj => {
-        return (
-          <div key={obj.id2}>
-            {obj.name} : {obj.number}{' '}
-            <button name={obj.name} onClick={deleteContacts}>
-              Delete
-            </button>
-          </div>
-        );
-      })}
+      {isLoggedIn ? (
+        <div>
+          <h1>Phone book</h1>
+          <ContactForm />
+          <h2>Contacts</h2>
+          <Filter />
+          {contact.map(obj => {
+            return (
+              <div key={obj.id}>
+                {obj.name} : {obj.number}{' '}
+                <button name={obj.name} onClick={deleteContacts}>
+                  Delete
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
     </>
   );
 };
